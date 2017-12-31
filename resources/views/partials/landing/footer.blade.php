@@ -24,7 +24,7 @@
                                 <li><a href="https://www.bitdegree.org/white-paper.pdf" class="navbar-cta" target="_blank">@lang('navigation.white-paper')</a></li>
                             @endif
 
-                            <li class="narrow"><a href=https://blog.bitdegree.org/">Blog</a></li>
+                            <li class="narrow"><a href="https://blog.bitdegree.org/">Blog</a></li>
                         </ul>
 
                         <div class="footer-login">
