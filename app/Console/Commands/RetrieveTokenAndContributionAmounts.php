@@ -55,7 +55,7 @@ class RetrieveTokenAndContributionAmounts extends Command
                 $refund->ether = bcdiv($weiSent, bcpow(10, 18), 18);
                 $refund->amounts_updated_at = Carbon::now();
 
-                $this->line('Updated: ' . $refund->tokens . ' BDG : ' . $refund->wei . ' ETH');
+                $this->line('Updated: ' . $refund->tokens . ' BDG : ' . $refund->ether . ' ETH');
 
                 $refund->save();
             } else {
