@@ -17,8 +17,8 @@ class AddRefundsTable extends Migration
             $table->increments('id');
             $table->integer('user_id', false, true)->nullable();
             $table->string('wallet');
-            $table->bigInteger('tokens', false, true);
-            $table->bigInteger('wei', false, true);
+            $table->binary('tokens')->default(0);
+            $table->binary('wei')->default(0);
             $table->dateTime('accepted_at')->nullable();
             $table->string('accepted_ip')->nullable();
             $table->text('tx')->nullable();
