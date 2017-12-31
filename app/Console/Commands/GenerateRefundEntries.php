@@ -61,7 +61,7 @@ class GenerateRefundEntries extends Command
             if($eligibleForARefund) {
                 $refund = new Refund();
                 $refund->tokens = 0;
-                $refund->wei = 0;
+                $refund->ether = 0;
                 $refund->wallet = strtolower($user->wallet);
 
                 $user->refunds()->save($refund);

@@ -51,8 +51,8 @@ class RetrieveTokenAndContributionAmounts extends Command
                 $response = static::callEth(env('TOKEN_ADDRESS'), $balanceAbi . substr($refund->wallet, 2));
                 $tokensReceived = preciseHexDec($response->result);
 
-                $refund->tokens = $tokensReceived;
-                $refund->wei = $weiSent;
+                $refund->tokens = bcdiv($tokensReceived, bcpow(10, 18), 18);
+                $refund->ether = bcdiv($weiSent, bcpow(10, 18), 18);
                 $refund->amounts_updated_at = Carbon::now();
 
                 $this->line('Updated: ' . $refund->tokens . ' BDG : ' . $refund->wei . ' ETH');
