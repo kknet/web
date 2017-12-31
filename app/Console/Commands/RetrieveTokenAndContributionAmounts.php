@@ -66,43 +66,41 @@ class RetrieveTokenAndContributionAmounts extends Command
         });
     }
 
-/**
- * Makes ETH call from etherscan API
- *
- * @param $address
- * @param $data
- * @param string $tag
- * @return mixed
- * @throws \Exception
- */
-public
-static function callEth($address, $data, $tag = 'latest')
-{
-    $client = new Client();
+    /**
+     * Makes ETH call from etherscan API
+     *
+     * @param $address
+     * @param $data
+     * @param string $tag
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function callEth($address, $data, $tag = 'latest' ) {
+        $client = new Client();
 
-    $response = $client->get('https://api.etherscan.io/api', [
-        'query' => [
-            'module' => 'proxy',
-            'action' => 'eth_call',
-            'to' => $address,
-            'data' => $data,
-            'tag' => $tag,
-            'apikey' => env('ETHERSCAN_API_KEY'),
-        ],
-        'timeout' => 30,
-        'http_errors' => false,
-    ]);
-
-    $content = $response->getBody()->getContents();
-
-    if ($response->getStatusCode() != 200) {
-        Log::error('ETH call failed', [
-            'status' => $response->getStatusCode(),
-            'body' => $content,
+        $response = $client->get('https://api.etherscan.io/api', [
+            'query' => [
+                'module' => 'proxy',
+                'action' => 'eth_call',
+                'to' => $address,
+                'data' => $data,
+                'tag' => $tag,
+                'apikey' => env('ETHERSCAN_API_KEY'),
+            ],
+            'timeout' => 30,
+            'http_errors' => false,
         ]);
-        throw new \Exception('ETH call failed');
-    }
 
-    return json_decode($content);
-}
+        $content = $response->getBody()->getContents();
+
+        if ($response->getStatusCode() != 200) {
+            Log::error('ETH call failed', [
+                'status' => $response->getStatusCode(),
+                'body' => $content,
+            ]);
+            throw new \Exception('ETH call failed');
+        }
+
+        return json_decode($content);
+    }
 }
