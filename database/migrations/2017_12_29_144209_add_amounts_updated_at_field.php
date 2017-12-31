@@ -14,7 +14,7 @@ class AddAmountsUpdatedAtField extends Migration
     public function up()
     {
         Schema::table('refunds', function (Blueprint $table) {
-            $table->dateTime('amounts_updated_at')->nullable()->after('wei');
+            $table->dateTime('amounts_updated_at')->nullable()->after('ether');
         });
     }
 
