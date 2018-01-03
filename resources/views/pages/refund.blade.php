@@ -84,7 +84,6 @@
                                     <p>You have to decide till January 11th,2018. If decide to refund, transfer the tokens 12th-31st January, 2018 according to instructions. Once tokens are returned, you will receive your contributed ETH 1st-10th February, 2018.</p>
                                     <p><strong>Can I refund only part of my tokens?</strong></p>
                                     <p>No, if you decide to refund, you must return all tokens.</p>
-                                    <h3>Refund decision status</h3>
                                 @else
                                     @if($instructionsAvailable)
                                         <p><strong>Step 1.</strong> Transfer tokens back to BitDegree</p>
@@ -119,9 +118,14 @@
                                 @if(request()->get('tutorial'))
                                     <p><a href="{{ route('refund') }}" class="btn btn-primary back">Go back</a></p>
                                 @else
-                                    <div class="agreement">
-                                        <input tabindex="3" type="checkbox" id="agreeToTerms" name="refund" {{ $refund->accepted_at !== null ? 'checked' : '' }} value="1">
-                                        <label for="agreeToTerms">Yes, I want to refund</label>
+                                    <h3>Refund decision status</h3>
+                                    <div class="choice">
+                                        <input tabindex="3" type="radio" id="refund-nay" name="refund" {{ $refund->accepted_at === null ? 'checked' : '' }} value="0">
+                                        <label for="refund-nay">No, I don't want to refund and I want to keep my BDG tokens</label>
+                                    </div>
+                                    <div class="choice">
+                                        <input tabindex="3" type="radio" id="refund-yay" name="refund" {{ $refund->accepted_at !== null ? 'checked' : '' }} value="1">
+                                        <label for="refund-yay">Yes, I want to refund and return my BDG tokens</label>
                                     </div>
 
                                     <div class="text-center login-cta signup-cta cta"><button tabindex="5" type="submit" class="btn btn-primary">SAVE</button></div>
