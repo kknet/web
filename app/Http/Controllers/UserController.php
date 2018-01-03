@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Refund;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -279,8 +280,42 @@ class UserController extends Controller
     }
 
     /**
+     * Saves user choice regarding refunds
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function refund(Request $request){
+        $user = auth()->user();
+
+        if($user->isEligibleForARefund() && time() < strtotime('2018-01-12T00:00:00+00:00')) {
+            $refund = $user->refunds()->onlyWithValue()->first();
+
+            if($refund instanceof Refund) {
+                $request->get('refund') ? $refund->accept() : $refund->reject();
+            }
+        }
+
+        return redirect()->back()->with('status', 'Your choice has been saved.');
+    }
+
+    /**
+     * Displays the refund page
      * @return \Illuminate\View\View
      */
+    function showRefund()
+    {
+        $user = auth()->user();
+
+        if(!$user->isEligibleForARefund()) {
+            abort(404);
+        }
+
+        $refund = $user->refunds()->onlyWithValue()->first();
+        $instructionsAvailable = time() >= strtotime('2018-01-12T00:00:00+00:00');
+
+        return view('pages.refund', compact('user', 'refund', 'instructionsAvailable'));
+    }
+
     function affiliate()
     {
         $banners = config('affiliate.banners');

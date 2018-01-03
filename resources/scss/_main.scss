@@ -2239,6 +2239,9 @@ body.login-page {
     text-transform: uppercase;
     font-weight: 300;
     border-radius:0;
+    &.no-capitalization {
+      text-transform: none;
+    }
   }
   a.link {
     font-size: 18px;
@@ -3212,6 +3215,52 @@ body.login-page {
   }
 }
 
+body.login-page.get-tokens.refund {
+  p{
+    font-size: 15px;
+    line-height: 22px;
+  }
+  .agreement{
+    margin:25px 0 25px 0;
+    input {
+      display: inline-block;
+      vertical-align: top;
+      width: 8%;
+    }
+    input[type='checkbox'] {
+      -webkit-appearance:none;
+      width:30px;
+      height:30px;
+      background:white;
+    }
+    input[type='checkbox']:checked {
+      &:before {
+        content: "\f00c";
+        display: inline-block;
+        font-family: FontAwesome;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color:#000;
+        padding: 5px;
+        font-size: 20px;
+      }
+    }
+    label{
+      font-family: $work-sans;
+      margin-left: 10px;
+      vertical-align: top;
+      font-weight: 300 !important;
+      font-size: 14px;
+      letter-spacing: 0;
+      padding-top:5px;
+      a{
+        color: #ffbcbc;
+      }
+    }
+  }
+}
+
 body.login-page.token-secured a.login-logo{
   margin:0;
 }
@@ -3442,6 +3491,33 @@ button.navbar-toggle {
     &:focus, &:hover {
       color: #FFF;
       background: none;
+    }
+  }
+}
+
+.refund-page {
+  .alert.alert-danger {
+    background: #c02b3f;
+    color: #fff;
+    text-align: left;
+  }
+  ol {
+    margin: 1rem 0 2rem;
+    li {
+      margin: 1rem 0;
+    }
+  }
+  .screenshot {
+    margin-top: 2rem;
+  }
+  .btn-primary.back {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem 3rem;
+  }
+  p.text-center {
+    .btn-primary.back {
+      margin-top: 0;
     }
   }
 }
