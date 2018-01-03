@@ -125,7 +125,7 @@
                                     </div>
                                     <div class="choice">
                                         <input tabindex="3" type="radio" id="refund-yay" name="refund" {{ $refund->accepted_at !== null ? 'checked' : '' }} value="1">
-                                        <label for="refund-yay">Yes, I want to refund and return my BDG tokens</label>
+                                        <label for="refund-yay">Yes, I want to refund</label>
                                     </div>
 
                                     <div class="text-center login-cta signup-cta cta"><button tabindex="5" type="submit" class="btn btn-primary">SAVE</button></div>
