@@ -7,6 +7,7 @@ use App\Library\Mailer;
 use App\User;
 use Carbon\Carbon;
 use GeoIp2\Database\Reader;
+use GeoIp2\Exception\AddressNotFoundException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
@@ -69,6 +70,16 @@ class AppServiceProvider extends ServiceProvider
 
             $self->airdrop = session()->pull('airdrop', 0);
             $self->ip = request()->ip();
+
+            try {
+                $result = app()->make('geoip')->country($self->ip);
+
+                if($result instanceof \GeoIp2\Model\Country) {
+                    $self->country_ip = $result->country->isoCode;
+                }
+            } catch (AddressNotFoundException $e) {
+                // Address was not found
+            }
         });
 
         EmailConfirmation::creating(function(EmailConfirmation $self) {
