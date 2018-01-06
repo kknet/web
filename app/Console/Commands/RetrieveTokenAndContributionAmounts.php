@@ -42,28 +42,32 @@ class RetrieveTokenAndContributionAmounts extends Command
     {
         $balanceAbi = '0x70a08231000000000000000000000000';
         Balance::whereNull('ico_balance')->limit($this->argument('amount'))->get()->each(function (Balance $wallet) use ($balanceAbi) {
-            $this->line('Processing ' . $wallet->wallet);
-            $response = static::callEth(env('ICO_ADDRESS'), $balanceAbi . substr($wallet->wallet, 2));
-            $weiSent = preciseHexDec($response->result);
+            try {
+                $this->line('Processing ' . $wallet->wallet);
+                $response = static::callEth(env('ICO_ADDRESS'), $balanceAbi . substr($wallet->wallet, 2));
+                $weiSent = preciseHexDec($response->result);
 
-            if (bccomp($weiSent, 0) === 1) {
-                $response = static::callEth(env('TOKEN_ADDRESS'), $balanceAbi . substr($wallet->wallet, 2));
-                $tokensReceived = preciseHexDec($response->result);
+                if (bccomp($weiSent, 0) === 1) {
+                    $response = static::callEth(env('TOKEN_ADDRESS'), $balanceAbi . substr($wallet->wallet, 2));
+                    $tokensReceived = preciseHexDec($response->result);
 
-                $wallet->ico_balance = bcdiv($tokensReceived, bcpow(10, 18), 18);
-                $wallet->ico_ether = bcdiv($weiSent, bcpow(10, 18), 18);
-                $wallet->balance = $wallet->ico_balance;
+                    $wallet->ico_balance = bcdiv($tokensReceived, bcpow(10, 18), 18);
+                    $wallet->ico_ether = bcdiv($weiSent, bcpow(10, 18), 18);
+                    $wallet->balance = $wallet->ico_balance;
 
-                $this->line('Updated: ' . $wallet->balance . ' BDG : ' . $wallet->ico_ether . ' ETH');
+                    $this->line('Updated: ' . $wallet->balance . ' BDG : ' . $wallet->ico_ether . ' ETH');
 
-                $wallet->save();
-            } else {
-                $this->line('Updated: balance is 0');
-                $wallet->ico_balance = 0;
-                $wallet->ico_ether = 0;
-                $wallet->balance = 0;
+                    $wallet->save();
+                } else {
+                    $this->line('Updated: balance is 0');
+                    $wallet->ico_balance = 0;
+                    $wallet->ico_ether = 0;
+                    $wallet->balance = 0;
 
-                $wallet->save();
+                    $wallet->save();
+                }
+            } catch (\Exception $e) {
+                Log::error($e->getMessage());
             }
         });
     }
