@@ -2,8 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Refund;
-use Carbon\Carbon;
+use App\Balance;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -22,7 +21,7 @@ class RetrieveTokenAndContributionAmounts extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Retrieves amounts and updates the balances';
 
     /**
      * Create a new command instance.
@@ -42,26 +41,29 @@ class RetrieveTokenAndContributionAmounts extends Command
     public function handle()
     {
         $balanceAbi = '0x70a08231000000000000000000000000';
-        Refund::onlyUnprocessed()->limit($this->argument('amount'))->get()->each(function (Refund $refund) use ($balanceAbi) {
-            $this->line('Processing ' . $refund->wallet);
-            $response = static::callEth(env('ICO_ADDRESS'), $balanceAbi . substr($refund->wallet, 2));
+        Balance::whereNull('ico_balance')->limit($this->argument('amount'))->get()->each(function (Balance $wallet) use ($balanceAbi) {
+            $this->line('Processing ' . $wallet->wallet);
+            $response = static::callEth(env('ICO_ADDRESS'), $balanceAbi . substr($wallet->wallet, 2));
             $weiSent = preciseHexDec($response->result);
 
             if (bccomp($weiSent, 0) === 1) {
-                $response = static::callEth(env('TOKEN_ADDRESS'), $balanceAbi . substr($refund->wallet, 2));
+                $response = static::callEth(env('TOKEN_ADDRESS'), $balanceAbi . substr($wallet->wallet, 2));
                 $tokensReceived = preciseHexDec($response->result);
 
-                $refund->tokens = bcdiv($tokensReceived, bcpow(10, 18), 18);
-                $refund->ether = bcdiv($weiSent, bcpow(10, 18), 18);
-                $refund->amounts_updated_at = Carbon::now();
+                $wallet->ico_balance = bcdiv($tokensReceived, bcpow(10, 18), 18);
+                $wallet->ico_ether = bcdiv($weiSent, bcpow(10, 18), 18);
+                $wallet->balance = $wallet->ico_balance;
 
-                $this->line('Updated: ' . $refund->tokens . ' BDG : ' . $refund->ether . ' ETH');
+                $this->line('Updated: ' . $wallet->balance . ' BDG : ' . $wallet->ico_ether . ' ETH');
 
-                $refund->save();
+                $wallet->save();
             } else {
-                $this->line('Rejecting refund #' . $refund->id . ' because contribution is 0.');
-                $refund->amounts_updated_at = Carbon::now();
-                $refund->save();
+                $this->line('Updated: balance is 0');
+                $wallet->ico_balance = 0;
+                $wallet->ico_ether = 0;
+                $wallet->balance = 0;
+
+                $wallet->save();
             }
         });
     }
