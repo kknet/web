@@ -287,7 +287,7 @@ class UserController extends Controller
     public function refund(Request $request){
         $user = auth()->user();
 
-        if($user->isEligibleForARefund() && time() < strtotime('2018-01-12T00:00:00+00:00')) {
+        if($user->isEligibleForARefund() && time() < strtotime('2018-01-11T00:00:00+00:00')) {
             $refund = $user->refunds()->onlyWithValue()->first();
 
             if($refund instanceof Refund) {
@@ -311,9 +311,10 @@ class UserController extends Controller
         }
 
         $refund = $user->refunds()->onlyWithValue()->first();
+        $refundsAvailable = time() < strtotime('2018-01-11T00:00:00+00:00');
         $instructionsAvailable = time() >= strtotime('2018-01-12T00:00:00+00:00');
 
-        return view('pages.refund', compact('user', 'refund', 'instructionsAvailable'));
+        return view('pages.refund', compact('user', 'refund', 'instructionsAvailable', 'refundsAvailable'));
     }
 
     function affiliate()

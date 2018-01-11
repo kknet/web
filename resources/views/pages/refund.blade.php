@@ -64,26 +64,31 @@
                                     <p>You must return your tokens from <strong>January 12, 2018</strong> to <strong>January 31, 2018</strong>.</p>
                                     <p>You will receive your ETH for the refunded tokens by <strong>February 10, 2018</strong>.</p>
                                 @elseif($refund->accepted_at === null)
-                                    <p>BDG token — is a utility token that will represent the future access to a learning platform’s services. BitDegree is fully compliant with law and wants to focus on project only, without taking any risks or putting contributors into it, which can affect the success of the whole blockchain based learning platform. It has <a style="color: #ffbcbc; font-weight:bold;" href="https://blog.bitdegree.org/bank-of-lithuania-confirms-bitdegree-token-and-model-of-operation-is-fully-within-legal-frameworks-ad0cb8e335c2">received confirmation</a> from Bank of Lithuania, acting under maintenance of European Central Bank, that token and model of operation is fully within legal frameworks.</p>
-                                    <p>As you may already know, taking into account newest legal practice in United States regarding securities & non-securities starting from middle of December 2017, questions related with tokens and causing uncertainty, BitDegree voluntarily decided to avoid any possible legal risks, including minimal or hypothetical, and to stop new contributions from United States residents, citizens, green card holders and taxpayers at BitDegree’s crowdsale.</p>
-                                    <p>According to above, residents of the United States participated in Bitdegree’s crowdsale will have an ability to be <b>voluntarily refunded until 31th January, 2018</b>, if they express an interest in returning their tokens by <b>January 11th, 2018</B> .</p>
-                                    <p>Before taking decision regarding your possibility to refund please kindly be informed, that:</p>
-                                    <p><b>(i) BitDegree token is a utility token that will be used in the operation cycles of the learning platform and will represent future access to a platform’s products and services;</b></p>
-                                    <p><b>(ii) there is no real assumptions or probabilities to believe or assume, that BitDegree token’s value will rise or grow. So, you should not have any though, guesses or forecasts, that token’s value may or will grow or rise;</b></p>
-                                    <p><b>(iii) purchase of BitDegree tokens shall be based just on participation on the project, not on speculative or investments motives. Therefore, if you purchased BitDegree tokens in order receive any profit from that later, please use our refund program, because, as mentioned above, there is no assumptions to believe, that BitDegree token’s value will or may rise.</b></p>
-                                    <p>We believe that BitDegree Learning Platform will succeed and revolutionize education from the base.</p>
-                                    <p>If you would still like to refund, check the box below frequently asked questions.</p>
-                                    <h3>Frequently Asked Questions</h3>
-                                    <p><strong>Do I have to refund?</strong></p>
-                                    <p>Only if you want to. This is not an obligation.</p>
-                                    <p><strong>What happens if I don't refund?</strong></p>
-                                    <p>Nothing. You will continue having your BDG tokens.</p>
-                                    <p><strong>Will I lose my tokens if I don’t refund?</strong></p>
-                                    <p>No, you will not lose your tokens. The ownership of the tokens is governed by a Smart Contract. Once the tokens are assigned to your address, we have no way of freezing or taking them away from you.</p>
-                                    <p><strong>How much time do I have for refund?</strong></p>
-                                    <p>You have to decide till January 11th,2018. If decide to refund, transfer the tokens 12th-31st January, 2018 according to instructions. Once tokens are returned, you will receive your contributed ETH 1st-10th February, 2018.</p>
-                                    <p><strong>Can I refund only part of my tokens?</strong></p>
-                                    <p>No, if you decide to refund, you must return all tokens.</p>
+                                    @if($refundsAvailable)
+                                        <p>BDG token — is a utility token that will represent the future access to a learning platform’s services. BitDegree is fully compliant with law and wants to focus on project only, without taking any risks or putting contributors into it, which can affect the success of the whole blockchain based learning platform. It has <a style="color: #ffbcbc; font-weight:bold;" href="https://blog.bitdegree.org/bank-of-lithuania-confirms-bitdegree-token-and-model-of-operation-is-fully-within-legal-frameworks-ad0cb8e335c2">received confirmation</a> from Bank of Lithuania, acting under maintenance of European Central Bank, that token and model of operation is fully within legal frameworks.</p>
+                                        <p>As you may already know, taking into account newest legal practice in United States regarding securities & non-securities starting from middle of December 2017, questions related with tokens and causing uncertainty, BitDegree voluntarily decided to avoid any possible legal risks, including minimal or hypothetical, and to stop new contributions from United States residents, citizens, green card holders and taxpayers at BitDegree’s crowdsale.</p>
+                                        <p>According to above, residents of the United States participated in Bitdegree’s crowdsale will have an ability to be <b>voluntarily refunded until 31th January, 2018</b>, if they express an interest in returning their tokens by <b>January 11th, 2018</B> .</p>
+                                        <p>Before taking decision regarding your possibility to refund please kindly be informed, that:</p>
+                                        <p><b>(i) BitDegree token is a utility token that will be used in the operation cycles of the learning platform and will represent future access to a platform’s products and services;</b></p>
+                                        <p><b>(ii) there is no real assumptions or probabilities to believe or assume, that BitDegree token’s value will rise or grow. So, you should not have any though, guesses or forecasts, that token’s value may or will grow or rise;</b></p>
+                                        <p><b>(iii) purchase of BitDegree tokens shall be based just on participation on the project, not on speculative or investments motives. Therefore, if you purchased BitDegree tokens in order receive any profit from that later, please use our refund program, because, as mentioned above, there is no assumptions to believe, that BitDegree token’s value will or may rise.</b></p>
+                                        <p>We believe that BitDegree Learning Platform will succeed and revolutionize education from the base.</p>
+                                        <p>If you would still like to refund, check the box below frequently asked questions.</p>
+                                        <h3>Frequently Asked Questions</h3>
+                                        <p><strong>Do I have to refund?</strong></p>
+                                        <p>Only if you want to. This is not an obligation.</p>
+                                        <p><strong>What happens if I don't refund?</strong></p>
+                                        <p>Nothing. You will continue having your BDG tokens.</p>
+                                        <p><strong>Will I lose my tokens if I don’t refund?</strong></p>
+                                        <p>No, you will not lose your tokens. The ownership of the tokens is governed by a Smart Contract. Once the tokens are assigned to your address, we have no way of freezing or taking them away from you.</p>
+                                        <p><strong>How much time do I have for refund?</strong></p>
+                                        <p>You have to decide till January 11th,2018. If decide to refund, transfer the tokens 12th-31st January, 2018 according to instructions. Once tokens are returned, you will receive your contributed ETH 1st-10th February, 2018.</p>
+                                        <p><strong>Can I refund only part of my tokens?</strong></p>
+                                        <p>No, if you decide to refund, you must return all tokens.</p>
+                                    @else
+                                        <p>The deadline for opting in for a refund was January 11, 2018.</p>
+                                        <p>The refund is no longer available for your account.</p>
+                                    @endif
                                 @else
                                     @if($instructionsAvailable)
                                         <p><strong>Step 1.</strong> Transfer tokens back to BitDegree</p>
@@ -117,7 +122,7 @@
 
                                 @if(request()->get('tutorial'))
                                     <p><a href="{{ route('refund') }}" class="btn btn-primary back">Go back</a></p>
-                                @else
+                                @elseif($refundsAvailable)
                                     <h3>Refund decision status</h3>
                                     <div class="choice">
                                         <input tabindex="3" type="radio" id="refund-nay" name="refund" {{ $refund->accepted_at === null ? 'checked' : '' }} value="0">
