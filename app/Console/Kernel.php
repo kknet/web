@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\GenerateRefundEntries::class,
         \App\Console\Commands\RetrieveTokenAndContributionAmounts::class,
         \App\Console\Commands\SetCountryIps::class,
+        \App\Console\Commands\CheckAffiliateCommissions::class,
     ];
 
     /**
