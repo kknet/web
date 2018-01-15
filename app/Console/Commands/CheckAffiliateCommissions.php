@@ -52,8 +52,7 @@ class CheckAffiliateCommissions extends Command
                     try {
                         cache()->rememberForever('user-txns-' . $user->id, function () use ($user) {
                             $firstTx = null;
-                            $txns = collect(static::retrieveTransactions($user->wallet)->result)->filter(function ($tx
-                            ) {
+                            $txns = collect(static::retrieveTransactions($user->wallet)->result)->filter(function ($tx) {
                                 return strtolower($tx->to) === strtolower(env('ICO_ADDRESS'));
                             })->each(function ($tx) use (&$firstTx) {
                                 $ts = (int)$tx->timeStamp;
@@ -79,6 +78,40 @@ class CheckAffiliateCommissions extends Command
                         $this->error($e->getMessage());
                     }
                 });
+        }
+
+        if($this->argument('mode') === 'list') {
+            $usedWallets = collect([]);
+
+            $sum = 0;
+
+            DB::table('users')
+                ->join('balances', 'users.wallet', '=', 'balances.wallet')
+                ->whereNotNull('users.affiliate_id')
+                ->whereNotNull('users.wallet')
+                ->orderBy('wallet_updated_at', 'asc')
+                ->get()
+                ->each(function ($user) use (&$usedWallets, &$sum) {
+                    $wallet = strtolower($user->wallet);
+                    $walletUpdated = strtotime($user->wallet_updated_at);
+                    $approvedCommission = collect([]);
+
+                    if(!$usedWallets->contains($wallet)) {
+                        $key = 'user-txns-' . $user->id;
+                        if(cache()->has($key)) {
+                            if($walletUpdated < cache()->get($key)['firstTx']) {
+                                $commission = bcmul($user->ico_balance, 0.05, 18);
+                                $approvedCommission->put($wallet, $commission);
+                                $sum = bcadd($sum, $commission, 18);
+                                $this->line(implode("\t", [$user->wallet, $user->ico_balance,  $commission]));
+                            }
+                        } else {
+                            $this->error('Missing transaction data for user ' . $user->id);
+                        }
+                    }
+                });
+
+            $this->line('Total: '.$sum);
         }
     }
 
