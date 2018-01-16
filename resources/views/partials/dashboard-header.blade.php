@@ -12,6 +12,7 @@
         <div class="col-xs-6 col-md-4 col-md-push-5 text-right">
             <div class="user-menu">
                 <ul>
+                    <li><a href="{{ route('wallet') }}"><i class="fa fa-lock" aria-hidden="true"></i> @lang('user.change-wallet')</a></li>
                     <li><a href="{{ route('password') }}"><i class="fa fa-user" aria-hidden="true"></i> @lang('user.change-pass')</a></li>
                     <li>
                         <form method="post" action="{{ route('logout') }}">

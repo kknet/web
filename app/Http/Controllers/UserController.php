@@ -73,20 +73,20 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        if (!empty($user->wallet)) {
-            return redirect()->route('address');
-        }
-
         $this->validate($request, [
             'wallet' => 'required|string|size:42',
         ]);
+
+        if($user->wallet == $request->get('wallet')) {
+            return back();
+        }
 
         $user->wallet = $request->get('wallet');
         $user->wallet_updated_at = Carbon::now();
 
         $user->save();
 
-        return redirect()->route('address');
+        return redirect()->back()->with('status', 'Wallet address has been saved.');
     }
 
     /**

@@ -32,6 +32,7 @@ return [
     'tab-earn' => 'Referral program',
     'tab-airdrops' => 'My Airdrops',
     'change-pass' => 'Change password',
+    'change-wallet' => 'Change wallet',
     'profile' => 'Please fill your profile',
     'first-name' => 'First Name',
     'country' => 'Country of residence',
