@@ -3,14 +3,7 @@
 @section('content')
 
     <div class="container-fluid">
-        <div class="col-sm-3 col-md-2 hidden-xs-down sidebar">
-            <h4>@lang('ico.whats-next')</h4>
-            <ul class="sidebar-nav">
-                <li class="step"><a href="">@lang('ico.step', ['number' => 1])</a></li>
-                <li class="step-other"><a href="#"><span>@lang('ico.step', ['number' => 2])</span></a></li>
-                <li class="step-other"><a href="#"><span>@lang('ico.other')</span></a></li>
-            </ul>
-        </div>
+        @include('partials.referral-menu')
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 pt-3 ">
 

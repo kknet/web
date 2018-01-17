@@ -349,6 +349,11 @@ class UserController extends Controller
         return view('pages.affiliate4', compact('banners', 'referralCount'));
     }
 
+    function affiliate5()
+    {
+        return view('pages.affiliate5');
+    }
+
 
 
 
