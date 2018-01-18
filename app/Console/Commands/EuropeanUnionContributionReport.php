@@ -74,15 +74,32 @@ class EuropeanUnionContributionReport extends Command
         sort($this->euCountries);
 
         $countries = DB::table('users')
-            ->select(DB::raw('users.wallet, ifnull(country, country_ip) as country'))
+            ->select(DB::raw('users.wallet, ifnull(country, country_ip) as country, wallet_updated_at'))
             ->whereNotNull('users.wallet')
-            ->groupBy('users.wallet')
             ->get()
             ->map(function ($user) {
                 $user->wallet = strtolower($user->wallet);
                 return $user;
             })
-            ->pluck('country', 'wallet')
+            ->groupBy('wallet')
+            ->map(function ($entries) {
+                if($entries->count() == 1) {
+                    return $entries->first()->country;
+                }
+
+                $firstCountry = null;
+                $firstUpdate = null;
+
+                foreach($entries as $entry) {
+                    $timestamp = strtotime($entry->wallet_updated_at);
+                    if($firstUpdate === null || $firstUpdate > $timestamp) {
+                        $firstUpdate = $timestamp;
+                        $firstCountry = $entry->country;
+                    }
+                }
+
+                return $firstCountry;
+            })
             ->filter(function ($country) {
                 return in_array($country, $this->euCountries);
             });
