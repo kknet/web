@@ -75,10 +75,8 @@ class EuropeanUnionContributionReport extends Command
 
         $countries = DB::table('users')
             ->select(DB::raw('users.wallet, ifnull(country, country_ip) as country'))
-            ->leftJoin('balances', 'users.wallet', '=', 'balances.wallet')
             ->whereNotNull('users.wallet')
             ->groupBy('users.wallet')
-            ->orderBy('balances.ico_ether', 'desc')
             ->get()
             ->map(function ($user) {
                 $user->wallet = strtolower($user->wallet);
