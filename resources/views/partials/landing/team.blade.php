@@ -859,9 +859,9 @@
             </div>
 
             <div class="row reg team-members">
-                <div class="col-md-12">
+                <div class="col-xs-12 col-md-10 col-md-push-1">
 
-                    <div class="col-xs-12 col-sm-3">
+                    <div class="col-xs-12 col-sm-4">
                         <div class="team-member">
 
                             <div class="team-member-image-holder" data-toggle="modal" data-target="#RicardasModal">
@@ -909,7 +909,7 @@
                         </div>
 
                     </div>
-                    <div class="col-xs-12 col-sm-3">
+                    <div class="col-xs-12 col-sm-4">
                         <div class="team-member">
 
                             <div class="team-member-image-holder" data-toggle="modal" data-target="#RokasModal">
@@ -956,8 +956,7 @@
                         </div>
 
                     </div>
-
-                    <div class="col-xs-12 col-sm-3">
+                    <div class="col-xs-12 col-sm-4">
                         <div class="team-member">
 
                             <div class="team-member-image-holder" data-toggle="modal" data-target="#AurimasModal">
@@ -1005,7 +1004,15 @@
 
                     </div>
 
-                    <div class="col-xs-12 col-sm-3">
+                </div>
+
+            </div>
+
+
+            <div class="row reg team-members">
+                <div class="col-xs-12 col-md-6 col-md-push-3">
+
+                    <div class="col-xs-12 col-sm-6">
                         <div class="team-member">
 
                             <div class="team-member-image-holder" data-toggle="modal" data-target="#SkirmantasModal">
@@ -1039,6 +1046,52 @@
                                                     </div>
                                                     <div class="team-member-desc">
                                                         <p>@lang('team.description_skirmantas')</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="team-member">
+
+                            <div class="team-member-image-holder" data-toggle="modal" data-target="#OrkanModal">
+                                <img class="team-member-image" src="{{ asset_rev('team/orkan-sahin.png') }}" alt="Orkan Sahin">
+                            </div>
+
+                            <div class="team-member-data">
+                                <h3 class="title">Orkan <b>Sahin</b></h3>
+                                <p>@lang('team.position_orkan')</p>
+                                <div class="handles">
+                                    <a href="https://www.linkedin.com/in/orkan-sahin-8a4134153/" rel="nofollow" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                                </div>
+
+                                <div class="modal fade" role="dialog" id="OrkanModal" tabindex="-1" aria-labelledby="gridModalLabel" style="display: none;">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                            </div>
+
+                                            <div class="modal-body">
+
+                                                <div class="team-member-image-holder" data-toggle="modal" data-target="#OrkanModal">
+                                                    <img class="team-member-image" src="{{ asset_rev('team/orkan-sahin.png') }}" alt="Orkan Sahin">
+                                                </div>
+                                                <div class="team-member-data">
+                                                    <h3 class="title">Orkan <b>Sahin</b></h3>
+                                                    <p>@lang('team.position_orkan')</p>
+                                                    <div class="handles">
+                                                        <a href="https://www.linkedin.com/in/orkan-sahin-8a4134153/" rel="nofollow" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                                                    </div>
+                                                    <div class="team-member-desc">
+                                                        <p>@lang('team.description_orkan')</p>
                                                     </div>
                                                 </div>
                                             </div>
