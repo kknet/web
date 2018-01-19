@@ -54,7 +54,7 @@
             <div class="timeline-title hidden"></div>
 
             <div class="row milestone step-3">
-                <div class="col-xs-12 col-sm-6 milestone-left">
+                <div class="col-xs-12 col-sm-6 milestone-left ruler-done">
                     <div class="milestone-tooltip milestone-done">
                         <h3 class="title">@lang('roadmap.title_ico')</h3>
                         <h5 class="subtitle visible-xs">@lang('roadmap.date_ico')</h5>
